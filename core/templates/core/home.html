@@ -1,0 +1,56 @@
+{% extends 'core/base.html' %}
+{% block title %}Home{% endblock title %}
+{% block main-content %}
+
+<section class="container">
+    <div class="row justify-content-around text-center text-white mt-3">
+        <div class="col-sm-8">
+            <h3>CRUD</h3>
+        </div>
+    </div>
+    <div class="row justify-content-around">
+        <div class="col-sm-8">
+            <a href="{% url "add-student" %}" class='btn btn-primary float-end'>Add</a>
+        </div>
+    </div>
+    <div class="row justify-content-around text-center text-white mt-1">
+        <div class="col-sm-8">
+            <table class="table table-dark table-striped">
+                <thead>
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">Name</th>
+                      <th scope="col">Roll</th>
+                      <th scope="col">City</th>
+                      <th scope="col">Action</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for stu in studata %}
+                    <tr>
+                      <th scope="row">{{stu.id}}</th> 
+                      <td>{{stu.name}}</td>
+                      <td>{{stu.roll}}</td>
+                      <td>{{stu.city}}</td>
+                      <td>
+                        <form action="{% url "delete-student" %}" method="POST">
+                          {% csrf_token %}
+                          <input type="hidden" name="id" value={{stu.id}}>
+                          <input type="submit" value="Delete" class="btn btn-danger">
+                        </form>
+                      </td>
+                      <td><a href="{% url "edit-student" stu.id%}" class="btn btn-info">Edit</a></td>
+                      
+                    </tr>
+                    {% endfor %}
+                  </tbody>                
+            </table>
+        </div>
+    </div>
+
+</section>
+
+
+
+{% endblock main-content%}
