@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "core",
+    "rest_framework",
+    "main",
 ]
 
 MIDDLEWARE = [
@@ -76,8 +78,14 @@ WSGI_APPLICATION = "polarpassbackend.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        # "ENGINE": "django.db.backends.sqlite3",
+        # "NAME": BASE_DIR / "db.sqlite3",
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": "polarpass_backend",
+        "USER": "postgres",
+        "PASSWORD": "12345678",
+        "HOST": "localhost",
+        'PORT': '5433',
     }
 }
 
