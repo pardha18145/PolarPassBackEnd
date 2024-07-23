@@ -21,3 +21,25 @@ class ProductDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = models.Vendor.objects.all()
     serializer_class = serializers.VendorDetailSerializer
     permission_classes = [permissions.IsAuthenticated]
+
+#customer views
+class CustomerList(generics.ListCreateAPIView):
+    queryset = models.Customer.objects.all()
+    serializer_class = serializers.CustomerSerializer
+    # permission_classes = [permissions.IsAuthenticated]
+
+class CustomerDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = models.Customer.objects.all()
+    serializer_class = serializers.CustomerDetailSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+#order views
+class OrderList(generics.ListCreateAPIView):
+    queryset = models.Order.objects.all()
+    serializer_class = serializers.OrderSerializer
+    # permission_classes = [permissions.IsAuthenticated]
+
+class OrderDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = models.Order.objects.all()
+    serializer_class = serializers.OrderDetailSerializer
+    permission_classes = [permissions.IsAuthenticated]
