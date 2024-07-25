@@ -1,4 +1,4 @@
-from rest_framework import generics,permissions
+from rest_framework import generics,permissions,pagination
 from . import serializers
 from . import models
 
@@ -16,6 +16,7 @@ class VendorDetail(generics.RetrieveUpdateDestroyAPIView):
 class ProductList(generics.ListCreateAPIView):
     queryset = models.Product.objects.all()
     serializer_class = serializers.ProductDetailSerializer
+    pagination_class=pagination.LimitOffsetPagination
 
 class ProductDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = models.Vendor.objects.all()
@@ -40,6 +41,11 @@ class OrderList(generics.ListCreateAPIView):
     # permission_classes = [permissions.IsAuthenticated]
 
 class OrderDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = models.Order.objects.all()
+    #queryset = models.OrderItem.objects.all()
     serializer_class = serializers.OrderDetailSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    #permission_classes = [permissions.IsAuthenticated]
+    def get_queryset(self):
+        order_id=self.kwargs['pk']
+        order=models.Order.objects.get(id=order_id)
+        order_items=models.OrderItems.objects.filter(order=order)
+        return order_items
